@@ -20,10 +20,14 @@ type TrainSwitch struct {
 }
 
 func NewTrainSwitch(r *raspi.Adaptor, onOffPin, trackPin string) *TrainSwitch {
-	return &TrainSwitch{
+	ts := &TrainSwitch{
 		onOffSwitch: gpio.NewRelayDriver(r, onOffPin),
 		trackSwitch: gpio.NewRelayDriver(r, trackPin),
 	}
+
+	ts.Off()
+
+	return ts
 }
 
 func (ts *TrainSwitch) Status() bool {
@@ -32,10 +36,10 @@ func (ts *TrainSwitch) Status() bool {
 
 func (ts *TrainSwitch) Toggle() error {
 	var err error
-	if ts.state {
-		err = ts.Off()
-	} else {
+	if !ts.state {
 		err = ts.On()
+	} else {
+		err = ts.Off()
 	}
 
 	if err != nil {
@@ -59,17 +63,17 @@ func (ts *TrainSwitch) On() error {
 
 	time.Sleep(time.Millisecond * 20)
 
-	if err := ts.onOffSwitch.On(); err != nil {
+	if err := ts.onOffSwitch.Off(); err != nil {
 		return err
 	}
 
 	time.Sleep(time.Millisecond * onSwitchDelay)
 
-	if err := ts.onOffSwitch.Off(); err != nil {
+	if err := ts.onOffSwitch.On(); err != nil {
 		return err
 	}
 
-	ts.state = true
+	ts.state = !ts.state
 
 	return nil
 
@@ -88,17 +92,17 @@ func (ts *TrainSwitch) Off() error {
 
 	time.Sleep(time.Millisecond * 20)
 
-	if err := ts.onOffSwitch.On(); err != nil {
+	if err := ts.onOffSwitch.Off(); err != nil {
 		return err
 	}
 
 	time.Sleep(time.Millisecond * onSwitchDelay)
 
-	if err := ts.onOffSwitch.Off(); err != nil {
+	if err := ts.onOffSwitch.On(); err != nil {
 		return err
 	}
 
-	ts.state = false
+	ts.state = !ts.state
 
 	return nil
 

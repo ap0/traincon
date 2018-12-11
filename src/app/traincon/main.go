@@ -90,8 +90,8 @@ func main() {
 	ts := &TrainServer{
 		rtr: rtr,
 		switches: map[string]*TrainSwitch{
-			"1": NewTrainSwitch(r, "10", "8"),
-			"2": NewTrainSwitch(r, "18", "16"),
+			"1": NewTrainSwitch(r, "8", "10"),
+			"2": NewTrainSwitch(r, "16", "18"),
 		},
 	}
 
