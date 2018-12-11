@@ -7,7 +7,10 @@ Used to control AC model train switches via a Raspberry Pi.  API is compatible w
 This project uses [gb](https://getgb.io/) to build.  After installing `gb`, simply:
 
 ```
+# build locally
 gb build app/traincon
+# build for raspberry pi
+GOPATH=`pwd`:`pwd`/vendor GOOS=linux GOARM=7 GOARCH=arm go build app/traincon
 ./traincon
 ```
 
