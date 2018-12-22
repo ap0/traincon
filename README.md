@@ -4,13 +4,13 @@ Used to control AC model train switches via a Raspberry Pi.  API is compatible w
 
 ![switch in action](resources/working.gif)
 
-This project uses [gb](https://getgb.io/) to build.  After installing `gb`, simply:
+This project uses `go mod` and thus requires Go 1.11.
 
 ```
 # build locally
-gb build app/traincon
+go build
 # build for raspberry pi
-GOPATH=`pwd`:`pwd`/vendor GOOS=linux GOARM=7 GOARCH=arm go build app/traincon
+GOOS=linux GOARM=7 GOARCH=arm go build
 ./traincon
 ```
 
