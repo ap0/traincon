@@ -1,0 +1,14 @@
+port: 8080
+switches:
+  1:
+    on_off_pin: 35
+    direction_pin: 37
+  2:
+    on_off_pin: 11
+    direction_pin: 13
+  3:
+    on_off_pin: 16
+    direction_pin: 18
+  4:
+    on_off_pin: 8
+    direction_pin: 10
